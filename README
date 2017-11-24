@@ -1,0 +1,20 @@
+
+The latest update date:
+2017.11.13
+
+The stable version for seed extension and 100% clustering optimization
+
+----------------------------------
+
+test version:
+
+3. backup of remove redundancy of seqan
+2. Don't need to do protein and before code arranging and checking.
+1. DNA version is done and next is to do protein clustering
+
+Installation:
+make
+
+Demo test command:
+./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.fna > data/viral.1.1.genomic.fna.clustering.out
+

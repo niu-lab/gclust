@@ -1,0 +1,222 @@
+#***Goal: debug the gclust program in Bioubuntu(2017.11.24)***
+# 1. make
+# liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ make
+g++ -I ./ -O3 -Wall -c gclust.cpp
+g++ -I ./ -O3 -Wall -c paraSA.cpp
+In file included from ./seqan/file.h:56:0,
+                 from ./seqan/score/score_matrix.h:40,
+                 from ./seqan/score.h:48,
+                 from ./seqan/seeds.h:37,
+                 from paraSA.cpp:2:
+./seqan/file/file_generated_forwards.h:927:66: error: invalid abstract return type ‘seqan::FileFormat<TFile, TData, TMeta, void>’ # error line! For this error, I annotation this line in head file: ./seqan/file/file_generated_forwards.h:927, and then re-run 'make'
+ template <typename TFile, typename TData, typename TMeta> inline FileFormat<TFile, TData, TMeta, void> guessFileFormat(TFile & file, TData & data);        // "projects/lib
+                                                                  ^
+In file included from ./seqan/file.h:84:0,
+                 from ./seqan/score/score_matrix.h:40,
+                 from ./seqan/score.h:48,
+                 from ./seqan/seeds.h:37,
+                 from paraSA.cpp:2:
+./seqan/file/file_format.h:143:8: note:   because the following virtual functions are pure within ‘seqan::FileFormat<TFile, TData, TMeta, void>’:
+ struct FileFormat<TFile, TData, TMeta, void>
+        ^
+./seqan/file/file_format.h:154:2: note:         virtual void* seqan::FileFormat<TFile, TData, TMeta, void>::formatID_() const
+  formatID_() const = 0;
+  ^
+./seqan/file/file_format.h:157:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::read_(TFile&, TData&) const
+  read_(TFile & file, TData & data) const = 0;
+  ^
+./seqan/file/file_format.h:159:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::read_(TFile&, TData&, seqan::FileFormat<TFile, TData, TMeta, void>::TSize) const
+  read_(TFile & file, TData & data, TSize limit) const = 0;
+  ^
+./seqan/file/file_format.h:162:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::readMeta_(TFile&, TMeta&) const
+  readMeta_(TFile & file, TMeta & meta) const = 0;
+  ^
+./seqan/file/file_format.h:165:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::goNext_(TFile&) const
+  goNext_(TFile & file) const = 0;
+  ^
+./seqan/file/file_format.h:168:2: note:         virtual seqan::FileFormat<TFile, TData, TMeta, void>::TSize seqan::FileFormat<TFile, TData, TMeta, void>::length_(TFile&) const
+  length_(TFile & file) const = 0;
+  ^
+./seqan/file/file_format.h:171:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::write_(TFile&, TData&) const
+  write_(TFile & file, TData & data) const = 0;
+  ^
+./seqan/file/file_format.h:173:2: note:         virtual void seqan::FileFormat<TFile, TData, TMeta, void>::write_(TFile&, TData&, TMeta&) const
+  write_(TFile & file, TData & data, TMeta & meta) const = 0;
+  ^
+paraSA.cpp: In member function ‘void paraSA::radixStep(int*, int*, long int&, long int*, long int, long int, long int)’:
+paraSA.cpp:905:53: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       int tmp = SA[ BucketBegin[ S[ SA[pos]*K + h ] ] ];
+                                                     ^
+paraSA.cpp:907:42: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       SA[ BucketBegin[ S[ SA[pos]*K + h] ]++ ] = SA[pos];
+                                          ^
+Makefile:11: recipe for target 'paraSA.o' failed
+make: *** [paraSA.o] Error 1
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ vi ./seqan/file/file_generated_forwards.h # 2. edit the program
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ make
+g++ -I ./ -O3 -Wall -c paraSA.cpp
+paraSA.cpp: In member function ‘void paraSA::radixStep(int*, int*, long int&, long int*, long int, long int, long int)’:
+paraSA.cpp:905:53: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       int tmp = SA[ BucketBegin[ S[ SA[pos]*K + h ] ] ];
+                                                     ^
+paraSA.cpp:907:42: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       SA[ BucketBegin[ S[ SA[pos]*K + h] ]++ ] = SA[pos];
+                                          ^
+g++ -I ./ -O3 -Wall -c fasta.cpp
+g++ -lpthread -I ./ -O3 gclust.o paraSA.o fasta.o -o gclust
+gclust.o: In function `main':
+gclust.cpp:(.text.startup+0x9a9): undefined reference to `pthread_create'
+gclust.cpp:(.text.startup+0x9d9): undefined reference to `pthread_join'
+gclust.cpp:(.text.startup+0xe6e): undefined reference to `pthread_create'
+gclust.cpp:(.text.startup+0xe99): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+Makefile:8: recipe for target 'gclust' failed
+make: *** [gclust] Error 1
+
+# check posix lib
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ gcc -v
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.4.0-6ubuntu1~16.04.4' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix (ok)
+gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)
+
+# 3. install gcc, fail!
+liruilin@Bioubuntu:~$ brew install gcc@4.8
+Updating Homebrew...
+==> Downloading https://ftp.gnu.org/gnu/gcc/gcc-4.8.5/gcc-4.8.5.tar.bz2
+######################################################################## 100.0%
+==> ../configure --build=x86_64-apple-darwin4.4.0-62-generic --prefix=/home/liru
+Last 15 lines from /home/liruilin/.cache/Homebrew/Logs/gcc@4.8/01.configure:
+--with-system-zlib
+--enable-libstdcxx-time=yes
+--enable-stage1-checking
+--enable-checking=release
+--enable-lto
+--enable-plugin
+--disable-werror
+--with-pkgversion=Homebrew GCC 4.8.5
+--with-bugurl=https://github.com/Homebrew/homebrew-core/issues
+MAKEINFO=missing
+--disable-nls
+--enable-multilib
+
+checking build system type... Invalid configuration `x86_64-apple-darwin4.4.0-62-generic': machine `x86_64-apple-darwin4.4.0-62' not recognized
+configure: error: /bin/bash ../config.sub x86_64-apple-darwin4.4.0-62-generic failed
+
+READ THIS: https://github.com/Linuxbrew/brew/blob/master/docs/Troubleshooting.md#troubleshooting
+Please do not report this issue to Homebrew/brew or Homebrew/core, which support macOS only.
+
+# 4. git the latest seqan form github
+
+# backup the seqan's old version
+mv seqan seqan_old_version
+
+# git seqan
+git clone https://github.com/seqan/seqan
+
+# 5. re-compile gclust
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ make
+g++ -lpthread -I ./ -O3 gclust.o paraSA.o fasta.o -o gclust
+gclust.o: In function `main':
+gclust.cpp:(.text.startup+0x9a9): undefined reference to `pthread_create'
+gclust.cpp:(.text.startup+0x9d9): undefined reference to `pthread_join'
+gclust.cpp:(.text.startup+0xe6e): undefined reference to `pthread_create'
+gclust.cpp:(.text.startup+0xe99): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+Makefile:8: recipe for target 'gclust' failed
+make: *** [gclust] Error 1
+
+# solve method: http://blog.csdn.net/silentpebble/article/details/6906117
+
+# http://blog.csdn.net/xueyushenzhou/article/details/51206351
+
+# backup Makefile
+cp Makefile Makefile.bak.gclust
+cp Makefile Makefile_latest_git
+
+
+g++ -lpthread -I ./ -O3 gclust.o paraSA.o fasta.o -o gclust
+
+
+# Makefile sample form Internet
+all:  
+    gcc -g -Wall   -I/usr/local/include -o transmitter transmitter.c IniFileRW.c  -lpthread   
+      
+clean:  
+    rm -rf *.o transmitter  
+
+# the key point is that: the '-lpthread' must be in the last position for ubuntu system, and '-lpthread' can be added after '-Wall' option
+# compiling like this: 
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ make
+g++  -I ./ -O3 gclust.o paraSA.o fasta.o -o gclust -lpthread
+
+# debug summary
+1. Update the latest seqan lib from github
+2. Revise the Makefile '-lpthread' position
+3. The prerequisites for seqan(from: https://github.com/seqan/seqan): 
+   3.1 Linux, Mac OSX, FreeBSD:
+	GCC ≥ 4.9 [GCC ≥ 5 recommended]
+	Clang/LLVM ≥ 3.5
+	Intel Compiler ≥ 16.0.2 
+# check our server Intel Compiler version: 
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ icc -v
+icc version 15.0.0 (gcc version 4.9.0 compatibility)
+
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-13$ echo $PATH
+/home/liruilin/.linuxbrew/bin:/home/liruilin/.linuxbrew/bin:/home/liruilin/python/Python-2.7.14/:/home/liruilin/perl-5.26.0/library_install/hotspot3d/library_install:/home/liruilin/pymol::/home/liruilin/perl-5.26.0/library_pkg/hotspot3d/bin:/home/liruilin/perl5/bin/:/home/liruilin/perl-5.26.0/bin:/home/liruilin/.linuxbrew/bin:/home/liruilin/.linuxbrew/bin:/home/liruilin/python/Python-2.7.14/:/home/liruilin/perl-5.26.0/library_install/hotspot3d/library_install:/home/liruilin/pymol::/home/liruilin/perl-5.26.0/library_pkg/hotspot3d/bin:/home/liruilin/perl5/bin/:/home/liruilin/perl-5.26.0/bin:/home/liruilin/bin:/home/liruilin/.local/bin:/home/liruilin/.linuxbrew/bin:/home/liruilin/.linuxbrew/bin:/home/liruilin/python/Python-2.7.14/:/home/liruilin/perl-5.26.0/library_install/hotspot3d/library_install:/home/liruilin/pymol::/home/liruilin/perl-5.26.0/library_pkg/hotspot3d/bin:/home/liruilin/perl5/bin/:/home/liruilin/perl-5.26.0/bin:/opt/intel/bin:/opt/intel/advisor_xe_2015.1.0.367266/bin64:/opt/intel/vtune_amplifier_xe_2015.1.0.367959/bin64:/opt/intel/inspector_xe_2015.1.0.366509/bin64:/opt/intel//impi/5.0.1.035/intel64/bin:/opt/intel//itac/9.0.1.033/intel64/bin:/opt/intel/composer_xe_2015.0.090/bin/intel64:/opt/intel/composer_xe_2015.0.090/mpirt/bin/intel64:/opt/intel/composer_xe_2015.0.090/debugger/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+#  when I move the gclust to era, it cannot run, the error:
+#
+#
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-24$ make
+g++ -I ./ -O3 -Wall -c paraSA.cpp
+In file included from /usr/include/c++/5/cinttypes:35:0,
+                 from ./seqan/platform.h:37,
+                 from ./seqan/sequence.h:66,
+                 from ./seqan/seeds.h:49,
+                 from paraSA.cpp:2:
+/usr/include/c++/5/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+In file included from ./seqan/sequence.h:66:0,
+                 from ./seqan/seeds.h:49,
+                 from paraSA.cpp:2:
+./seqan/platform.h:155:6: error: #error SeqAn requires C++14! You must compile your application with -std=c++14, -std=gnu++14 or -std=c++1y.
+     #error SeqAn requires C++14! You must compile your application with -std=c++14, -std=gnu++14 or -std=c++1y.
+      ^
+^CMakefile:11: recipe for target 'paraSA.o' failed
+make: *** [paraSA.o] Interrupt
+
+# Haidong: compiler reason!
+add --std=c++14 after g++
+# make again
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-24$ make
+g++ -std=c++14 -I ./ -O3 -Wall -c paraSA.cpp
+paraSA.cpp: In function ‘void seedextensions(std::vector<mumi_unit>&, std::vector<Genome>&, long int, long int, char, int, int, int, int, int, int)’:
+paraSA.cpp:437:17: error: wrong number of template arguments (0, should be at least 1)
+    typedef Seed<> TSeed;
+                 ^
+In file included from ./seqan/seeds.h:64:0,
+                 from paraSA.cpp:2:
+./seqan/seeds/seeds_seed_base.h:130:7: note: provided for ‘template<class TSpec, class TConfig> class seqan::Seed’ # error!
+ class Seed;
+       ^
+paraSA.cpp:438:40: error: expression list treated as compound expression in initializer [-fpermissive]
+    TSeed seed(seedbegin0, g1leftband, 1);
+liruilin@Bioubuntu:~/gclust/gclust.v1.0-2017-11-24$ make
+g++ -std=c++14 -I ./ -O3 -Wall -c paraSA.cpp
+paraSA.cpp: In member function ‘void paraSA::radixStep(int*, int*, long int&, lo
+paraSA.cpp:907:53: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       int tmp = SA[ BucketBegin[ S[ SA[pos]*K + h ] ] ];
+                                                     ^
+paraSA.cpp:909:42: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+       SA[ BucketBegin[ S[ SA[pos]*K + h] ]++ ] = SA[pos];
+                                          ^
+g++ -std=c++14  -I ./ -O3 gclust.o paraSA.o fasta.o -o gclust -lpthread
+# the warning reason: transform char to unsigned char
+
+# in era, when run 'make', please delete '-std=c++14'
+

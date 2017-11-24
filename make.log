@@ -1,0 +1,2 @@
+g++ -I ./ -O3 -Wall -c paraSA.cpp
+Makefile:11: recipe for target 'paraSA.o' failed
