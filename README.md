@@ -48,7 +48,7 @@ Clone the gclust repos, and build the `gclust` binary:
 
 Now you can put the resulting binary where your `$PATH` can find it. If you have su permissions, then
 I recommend dumping it in the system directory for locally compiled packages:
-
+    
     sudo mv gclust /usr/local/bin/
 
 If you have su permissions, then you may just add an environment variable to ~/.bashrc:
@@ -58,11 +58,11 @@ If you have su permissions, then you may just add an environment variable to ~/.
 Example
 -------
 1. Sort the input genomes in decreasing order of length:
-
+    
     perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgenomes-file data/viral.1.1.genomic.sort.fna
 
 2. Run gclust:
-
+    
     ./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 
 
