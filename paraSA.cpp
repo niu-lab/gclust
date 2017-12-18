@@ -378,8 +378,17 @@ void seedextensions(vector<mumi_unit> &ddremoves,
 	//g1rightend = allpartgenomes[id].size-1;
 
 	// Get DNA content
-	DnaString seq0 = allpartgenomes[iref].cont;
-	DnaString seq1 = allpartgenomes[id].cont;
+	DnaString seq0, seq1;
+	if(allpartgenomes.size() != 0) 
+	{//add judgment statement for variable allpartgenomes
+		seq0 = allpartgenomes[iref].cont;
+		seq1 = allpartgenomes[id].cont;
+	}
+	else
+	{
+		return; 
+	}
+
 
 	// Get reverse complement DNA sequence 
 	if (strand == '-')
