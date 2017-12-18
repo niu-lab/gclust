@@ -59,7 +59,7 @@ Example
 -------
 1. Sort the input genomes in decreasing order of length:    
 ```bash    
-      perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgenomes-file data/viral.1.1.genomic.sort.fna
+perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgenomes-file data/viral.1.1.genomic.sort.fna
 ```
 2. Run gclust:  
     
