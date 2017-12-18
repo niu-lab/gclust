@@ -58,9 +58,9 @@ If you have su permissions, then you may just add an environment variable to ~/.
 Example
 -------
 1. Sort the input genomes in decreasing order of length:    
-    
+```bash    
       perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgenomes-file data/viral.1.1.genomic.sort.fna
-
+```
 2. Run gclust:  
     
       ./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
