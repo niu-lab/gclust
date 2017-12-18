@@ -4,7 +4,7 @@ Gclust (Genome sequence clustering), a program for clustering the rapid growth o
 
 Gclust is special designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequence and representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
 
-Gclust was written in C++ and uses the SeqAn library and the libdivsufsort library. It is currently maintained by Dr. Beifang Niu (bniu@ucsd.edu) in the Dr. Li's group (http://weizhong-lab.ucsd.edu/).
+Gclust was written in C++ and uses the SeqAn library and the libdivsufsort library. It is currently maintained by Dr. Beifang Niu (bniu@sccas.cn).
 
 Usage
 -----
@@ -14,28 +14,28 @@ Usage
 
 Options:
 
-       -minlen   <int>      set the minimum length of a exact match, if not set, default=20
-       -both     <string>   compute forward and reverse complement matches, the default value is forward
-       -nuc      <string>   match only the characters a, c, g, or t
-       -sparse   <int>      step of sparse suffix array, default=1
-       -threads  <int>      number of threads to use, default=1
-       -chunk    <int>      chunk size for one time clustering, the unit is MB, default=100
-       -nchunk   <int>      chunk number loaded one time for remaining genomes alignment, default=2
-       -loadall  <int>      loading total genomes one time
-       -rebuild  <int>      rebuild suffix array after clustering into one chunk, default=1
+       -minlen   <int>       set the minimum length of a exact match, if not set, default=20
+       -both     <no-args>   compute forward and reverse complement matches, the default value is forward
+       -nuc      <no-args>   match only the characters a, c, g, or t
+       -sparse   <int>       step of sparse suffix array, default=1
+       -threads  <int>       number of threads to use, default=1
+       -chunk    <int>       chunk size for one time clustering, the unit is MB, default=100
+       -nchunk   <int>       chunk number loaded one time for remaining genomes alignment, default=2
+       -loadall  <int>       loading total genomes one time
+       -rebuild  <int>       rebuild suffix array after clustering into one chunk, default=1
 
 Clustering cutoff:
 
-       -memiden  <int>      MEMs identity for clustering (default=90, 90% MEMs identity)
+       -memiden  <int>       MEMs identity for clustering (default=90, 90% MEMs identity)
 
 MEM extension options:
 
-       -ext       <int>     Extension options, 0: No extension, 1: Gapped extension, 2: Ungapped extension, the default is 1
-       -mas       <int>     Reward for a nucleotide match, the default value is 1
-       -umas      <int>     Penalty for a nucleotide mismatch, the default value is -1
-       -gapo      <int>     Cost to open a gap, the default value is -1
-       -gape      <int>     Cost to extend a gap, the default value is -1
-       -drops     <int>     X dropoff value for extension, the default value is 1
+       -ext       <int>      Extension options, 0: No extension, 1: Gapped extension, 2: Ungapped extension, the default is 1
+       -mas       <int>      Reward for a nucleotide match, the default value is 1
+       -umas      <int>      Penalty for a nucleotide mismatch, the default value is -1
+       -gapo      <int>      Cost to open a gap, the default value is -1
+       -gape      <int>      Cost to extend a gap, the default value is -1
+       -drops     <int>      X dropoff value for extension, the default value is 1
 
 Install
 -------
@@ -57,7 +57,11 @@ If you have su permissions, then you may just add an environment variable to ~/.
 
 Example
 -------
-./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.fna > data/viral.1.1.genomic.fna.clustering.out
+First, the input genomes should be sorted, the command line as follows:
+perl ./script/sortgenome.pl data/viral.1.1.genomic.fna > data/viral.1.1.genomic.sort.fna
+
+and then, do clustering:
+./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 
 Description:
 Find all MEMs on forward and reverse strands of length 20 or greater, matching only a, c, t, or g, with step of sparse suffix array 32 using 8 threads parallel computing gapped extension for MEMs seeds.
