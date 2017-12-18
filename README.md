@@ -49,7 +49,7 @@ Clone the gclust repos, and build the `gclust` binary:
 Now you can put the resulting binary where your `$PATH` can find it. If you have su permissions, then
 I recommend dumping it in the system directory for locally compiled packages:
 
-    sudo mv msisensor /usr/local/bin/
+    sudo mv gclust /usr/local/bin/
 
 If you have su permissions, then you may just add an environment variable to ~/.bashrc:
     
@@ -58,9 +58,11 @@ If you have su permissions, then you may just add an environment variable to ~/.
 Example
 -------
 First, the input genomes should be sorted, the command line as follows:  
+
 perl ./script/sortgenome.pl data/viral.1.1.genomic.fna > data/viral.1.1.genomic.sort.fna
 
 and then, do clustering:  
+
 ./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 
 Description:
