@@ -271,6 +271,8 @@ void *single_thread(void *arg_)
 
 int main(int argc, char* argv[]) 
 {
+	time_t start, end;
+        start=time(NULL);
 	// Version notice.
 	cerr<<"\nGclust version 1.0\n"<<endl;
 	// Collect parameters from the command line.
@@ -526,6 +528,8 @@ int main(int argc, char* argv[])
 	// Output with CD-HIT format.
 	outputClusteringInfoSimple(totalgenomes); 
 	cerr<<"The finish.\n"<<endl;
+        end=time(NULL);
+        cerr<<"time:"<<end-start<<" s"<<endl;
 	return 0; // The end.
 }
 
