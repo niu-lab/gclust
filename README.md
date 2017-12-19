@@ -4,7 +4,7 @@ Gclust (Genome sequence clustering), a program for clustering the rapid growth o
 
 Gclust is special designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequence and representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
 
-Gclust was written in C++ and uses the SeqAn library and the libdivsufsort library. It is currently maintained by Dr. Beifang Niu (bniu@sccas.cn).
+Gclust was written in C++ and uses the SeqAn library. It is currently maintained by Dr. Beifang Niu (bniu@sccas.cn).
 
 Usage
 -----
