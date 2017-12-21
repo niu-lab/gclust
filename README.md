@@ -63,7 +63,7 @@ perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgeno
 ```
 2. Run gclust:  
 ```bash    
-./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 32 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
+./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 2 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 ```
 Description:
 Find all MEMs on forward and reverse strands of length 20 or greater, matching only a, c, t, or g, with step of sparse suffix array 32 using 8 threads parallel computing gapped extension for MEMs seeds.
