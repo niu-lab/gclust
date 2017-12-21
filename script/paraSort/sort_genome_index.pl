@@ -18,7 +18,7 @@ my $gfr = IO::File->new($gf) or die "can not open this file ! \n";
 # reading input genomes file
 my @genome;
 my ($index, $value);
-map{ chomp; ($index, $value)=split/\t/; push(@genome, [$index, $value] ); }<$gfr>;
+while(<$gfr>){ chomp; ($index, $value)=split/\t/; push(@genome, [$index, $value] ); }
 undef $gfr;
 my $genomenum = @genome;
 print STDOUT "total genomes:\t".$genomenum."\n";
