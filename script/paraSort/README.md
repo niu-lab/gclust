@@ -17,7 +17,7 @@ perl extract_index_length.pl --genomes-file data/viral.genomic.fna --index-file 
 ```bash
 perl sort_genome_index.pl --index-file data/viral.index.length --sortedindex-file data/viral.index.length.sorted
 ```
-step3: sort genomes
+3. sort genomes
 ```bash
 mpirun -np 4 ./para_sortgenome  --input data/viral.genomic.fna  --index data/viral.index.length.sorted --output data/viral.genomic.parasort.fna
 ```
