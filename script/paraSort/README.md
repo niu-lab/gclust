@@ -4,9 +4,10 @@ This sub-program can be used when the genome.fna file is  too large, which fulfi
 
 Install
 ---------
+```bash
 cd paraSort
 make
-
+```
 Example 
 ----------
 1. extract index and length 
