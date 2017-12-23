@@ -18,7 +18,7 @@ my $gfr = IO::File->new($gf) or die "can not open this file ! \n";
 # reading input genomes file
 my ( $i, $t, @genome, $name, $len, $str, $ll , );
 $i = $t = 0;
-map{ if (/^>/) { if ($i > 0) { push( @genome, [$name,$len,$str] ); $str = ""; $len = 0; } $name = $_; $i++; } else { $t = length($_) - 1; $str .= $_; $len += $t; } } <$gfr>;
+while(<$gfr>){chomp; $_=$_."\n"; if (/^>/) { if ($i > 0) { push( @genome, [$name,$len,$str] ); $str = ""; $len = 0; } $name = $_; $i++; } else { $t = length($_) - 1; $str .= $_; $len += $t; } }
 push( @genome,[$name,$len,$str] );
 undef $gfr;
 my $genomenum = @genome;
