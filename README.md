@@ -1,10 +1,10 @@
 Gclust
 ===========
-Gclust (Microbial genomes clustering), a program for clustering the rapid growth of complete or draft genome sequences. Using a sparse suffix array algorithm and a genomic-distance identity taking into account the criteria of diversity, which is based on extension DNA maximal exact matches (MEM), Gclust creates clusters under the given set of genome sequences and extension MEM identity. It takes less than 10 minutes for the clustering of the 9578 complete microbial genome sequences with average 27Kbp length on 24-core Intel(R) Xeon(R) CPU E5-2680 v3 @2.50GHz with 16 threads parallel computing. It offers the possibility of clustering the rapid growth of complete or draft microbial genomes in the future. 
+Gclust (A Parallel Clustering Tool for Microbial Genomic Data), a program for clustering the rapid growth of complete or draft genome sequences. Using a sparse suffix array algorithm and a genomic-distance identity taking into account the criteria of diversity, which is based on extension DNA maximal exact matches (MEM), Gclust creates clusters under the given set of genome sequences and extension MEM identity. It takes less than 10 minutes for the clustering of the 9578 complete microbial genome sequences with average 27Kbp length on 24-core Intel(R) Xeon(R) CPU E5-2680 v3 @2.50GHz with 16 threads parallel computing. It offers the possibility of clustering the rapid growth of complete or draft microbial genomes in the future. 
 
-Gclust is special designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequence and representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
+Gclust is specially designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequence and representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
 
-Gclust was written in C++ and uses the SeqAn library. It is currently maintained by Dr. Beifang Niu (bniu@sccas.cn).
+Gclust was written in C++ and uses the SeqAn library. It is currently maintained by Dr. Beifang Niu (niubf@cnic.cn).
 
 Usage
 -----
@@ -75,5 +75,5 @@ The output file will be written to ./data directory
 
 Contact
 -------
-Please contact Dr. Beifang Niu by bniu@sccas.cn if you have any questions.
+Please contact Dr. Beifang Niu by niubf@cnic.cn if you have any questions.
 
