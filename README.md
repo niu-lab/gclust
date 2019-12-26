@@ -37,7 +37,7 @@ MEM extension options:
        -gape      <int>      Cost to extend a gap, default = -1
        -drops     <int>      X dropoff value for extension, default = 1
 
-Install
+Installation
 -------
 
 Clone the gclust repos, and build the `gclust` binary:
