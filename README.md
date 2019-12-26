@@ -72,4 +72,3 @@ The output file will be written to ./data directory
 Contact
 -------
 Please contact Dr. Beifang Niu by niubf@cnic.cn if you have any questions.
-`
