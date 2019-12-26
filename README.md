@@ -1,8 +1,6 @@
 Gclust: A Parallel Clustering Tool for Microbial Genomic Data
 ===========
-Gclust is a program for clustering the rapid growth of complete or draft genome sequences. Using a sparse suffix array algorithm and a genomic-distance identity taking into account the criteria of diversity, which is based on extension DNA maximal exact matches (MEMs), Gclust creates clusters under the given set of genome sequences and extension MEM identity. It takes less than 10 minutes for the clustering of the 9578 complete microbial genome sequences with average 27Kbp length on 24-core Intel(R) Xeon(R) CPU E5-2680 v3 @2.50GHz with 16 threads parallel computing. It offers the possibility of clustering the rapid growth of complete or draft microbial genomes in the future. 
-
-Gclust is specially designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequenceand representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
+Gclust is a parallel program for clustering complete or draft genomic sequences, where clustering is ac-celerated with a novel parallelization strategy and a fast sequence comparison algorithm using sparse suffix arrays (SSAs). Moreover, genome identity measures between two sequences are calculated based on their maximal exact matches (MEMs). Gclust is freely available for non-commercial use at https://github.com/niu-lab/gclust. We also introduce a web server for clustering user-uploaded genomes at http://niulab.scgrid.cn/gclust.
 
 Gclust was written in C++ and uses the SeqAn library. It is currently maintained by Dr. Beifang Niu (niubf@cnic.cn).
 
