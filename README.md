@@ -10,28 +10,28 @@ Usage
 
 Options:
 
-       -minlen   <int>       Set the minimum length of an exact match, if not set, default = 20
+       -minlen   <int>       Set the minimum length for exact match, if not set, default = 20
        -both     <no-args>   Compute forward and reverse complement matches, default = forward
        -nuc      <no-args>   Match only the characters a, c, g, or t
-       -sparse   <int>       Step of sparse suffix array, default = 1
-       -threads  <int>       Number of threads to use, default = 1
-       -chunk    <int>       Chunk size for one time clustering, the unit is MB, default = 100
-       -nchunk   <int>       Chunk number loaded one time for remaining genomes alignment, default = 2
-       -loadall  <int>       Loading total genomes one time
+       -sparse   <int>       Set the step of sparse suffix array, default = 1
+       -threads  <int>       Set the number of threads to use, default = 1
+       -chunk    <int>       Set the chunk size for one time clustering, default = 100, where the unit is MB
+       -nchunk   <int>       Set the chunk number loaded one time for remaining genomes alignment, default = 2
+       -loadall  <int>       Load the total genomes one time
        -rebuild  <int>       Rebuild suffix array after clustering into one chunk, default = 1
 
 Clustering cutoff:
 
-       -memiden  <int>       Set extended MEM idendity(eMEMi) or MEM idendity for clustering, default = 90, i.e., the genomes were clustered at 90% eMEMi under the condition of '-ext = 1'
+       -memiden  <int>       Set the value of extended maximal exact match (MEM) idendity or non-extended MEM idendity for clustering, default = 90, i.e., the genomes will be clustered at 90% extended MEM idendity under the condition of '-ext = 1'; on the contrary, the genomes will be clustered at 90% non-extended MEM idendity under the condition of '-ext = 0'
 
-MEM extension options:
+Extension options of MEM:
 
-       -ext       <int>      Extension options, 0: no extension, 1: gapped extension, 2: un-gapped extension, default = 1
-       -mas       <int>      Reward for a nucleotide match, default = 1
-       -umas      <int>      Penalty for a nucleotide mismatch, default = -1
-       -gapo      <int>      Cost to open a gap, default = -1
-       -gape      <int>      Cost to extend a gap, default = -1
-       -drops     <int>      X dropoff value for extension, default = 1
+       -ext       <int>      Set the extension type of MEM, where '0' means no extension, '1' means gapped extension and '2' means un-gapped extension, default = 1
+       -mas       <int>      Set the reward value for a nucleotide match, default = 1
+       -umas      <int>      Set the penalty value for a nucleotide mismatch, default = -1
+       -gapo      <int>      Set the cost value to open a gap, default = -1
+       -gape      <int>      Set the cost value to extend a gap, default = -1
+       -drops     <int>      Set the X dropoff value for extension, default = 1
 
 Installation
 -------
@@ -42,12 +42,12 @@ Clone the gclust repos, and build the `gclust` binary:
     cd gclust
     make
 
-Now you can put the resulting binary where your `$PATH` can find it. If you have su permissions, then
+Now you can put the resulting binary where your `$PATH` can find it. If you have root permissions, then
 I recommend dumping it in the system directory for locally compiled packages:
     
     sudo mv gclust /usr/local/bin/
 
-If you have su permissions, then you may just add an environment variable to ~/.bashrc:
+If you have root permissions, then you may just add an environment variable to ~/.bashrc:
     
     export PATH=/your_install_path/gclust:$PATH
 
@@ -57,17 +57,14 @@ Example
 ```bash    
 perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgenomes-file data/viral.1.1.genomic.sort.fna
 ```
-2. Run gclust:  
+2. Run gclust:
 ```bash    
 ./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 2 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 ```
-Description:
-Find all MEMs on forward and reverse strands of length 20 or greater, matching only a, c, t, or g, with step of sparse suffix array 32 using 8 threads parallel computing gapped extension for MEMs seeds.
 
 Output
 -------
-The output file will be written to ./data directory 
-     viral.1.1.genomic.fna.clustering.out
+If the user does not specify an output file name, the clustering results will be placed in the './data' directory by default, and the default file name is 'viral.1.1.genomic.sort.fna'.
 
 Contact
 -------
