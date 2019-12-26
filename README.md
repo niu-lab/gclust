@@ -1,8 +1,8 @@
 Gclust
 ===========
-Gclust (A Parallel Clustering Tool for Microbial Genomic Data), a program for clustering the rapid growth of complete or draft genome sequences. Using a sparse suffix array algorithm and a genomic-distance identity taking into account the criteria of diversity, which is based on extension DNA maximal exact matches (MEM), Gclust creates clusters under the given set of genome sequences and extension MEM identity. It takes less than 10 minutes for the clustering of the 9578 complete microbial genome sequences with average 27Kbp length on 24-core Intel(R) Xeon(R) CPU E5-2680 v3 @2.50GHz with 16 threads parallel computing. It offers the possibility of clustering the rapid growth of complete or draft microbial genomes in the future. 
+Gclust (A Parallel Clustering Tool for Microbial Genomic Data), a program for clustering the rapid growth of complete or draft genome sequences. Using a sparse suffix array algorithm and a genomic-distance identity taking into account the criteria of diversity, which is based on extension DNA maximal exact matches (MEMs), Gclust creates clusters under the given set of genome sequences and extension MEM identity. It takes less than 10 minutes for the clustering of the 9578 complete microbial genome sequences with average 27Kbp length on 24-core Intel(R) Xeon(R) CPU E5-2680 v3 @2.50GHz with 16 threads parallel computing. It offers the possibility of clustering the rapid growth of complete or draft microbial genomes in the future. 
 
-Gclust is specially designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequence and representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
+Gclust is specially designed for genome sized sequences clustering and introduced one kind of genomic-distance identity taking into account the criteria of diversity. The fast sparse suffix array construction algorithm was used in finding MEMs between query genome sequenceand representative genome sequences. The dynamic programming extension of MEMs is also supported for genome sequence identity computing. Our implementation supports multithreads parallel computing. 
 
 Gclust was written in C++ and uses the SeqAn library. It is currently maintained by Dr. Beifang Niu (niubf@cnic.cn).
 
@@ -14,28 +14,28 @@ Usage
 
 Options:
 
-       -minlen   <int>       set the minimum length of an exact match, if not set, default = 20
-       -both     <no-args>   compute forward and reverse complement matches, the default value is forward
-       -nuc      <no-args>   match only the characters a, c, g, or t
-       -sparse   <int>       step of sparse suffix array, default = 1
-       -threads  <int>       number of threads to use, default = 1
-       -chunk    <int>       chunk size for one time clustering, the unit is MB, default = 100
-       -nchunk   <int>       chunk number loaded one time for remaining genomes alignment, default = 2
-       -loadall  <int>       loading total genomes one time
-       -rebuild  <int>       rebuild suffix array after clustering into one chunk, default = 1
+       -minlen   <int>       Set the minimum length of an exact match, if not set, default = 20
+       -both     <no-args>   Compute forward and reverse complement matches, default = forward
+       -nuc      <no-args>   Match only the characters a, c, g, or t
+       -sparse   <int>       Step of sparse suffix array, default = 1
+       -threads  <int>       Number of threads to use, default = 1
+       -chunk    <int>       Chunk size for one time clustering, the unit is MB, default = 100
+       -nchunk   <int>       Chunk number loaded one time for remaining genomes alignment, default = 2
+       -loadall  <int>       Loading total genomes one time
+       -rebuild  <int>       Rebuild suffix array after clustering into one chunk, default = 1
 
 Clustering cutoff:
 
-       -memiden  <int>       MEMs identity for clustering (default = 90, 90% MEMs identity)
+       -memiden  <int>       Set extended MEM idendity(eMEMi) or MEM idendity for clustering, default = 90, i.e., the genomes were clustered at 90% eMEMi under the condition of '-ext = 1'
 
 MEM extension options:
 
-       -ext       <int>      Extension options, 0: No extension, 1: Gapped extension, 2: Ungapped extension, the default is 1
-       -mas       <int>      Reward for a nucleotide match, the default value is 1
-       -umas      <int>      Penalty for a nucleotide mismatch, the default value is -1
-       -gapo      <int>      Cost to open a gap, the default value is -1
-       -gape      <int>      Cost to extend a gap, the default value is -1
-       -drops     <int>      X dropoff value for extension, the default value is 1
+       -ext       <int>      Extension options, 0: no extension, 1: gapped extension, 2: un-gapped extension, default = 1
+       -mas       <int>      Reward for a nucleotide match, default = 1
+       -umas      <int>      Penalty for a nucleotide mismatch, default = -1
+       -gapo      <int>      Cost to open a gap, default = -1
+       -gape      <int>      Cost to extend a gap, default = -1
+       -drops     <int>      X dropoff value for extension, default = 1
 
 Install
 -------
@@ -76,4 +76,4 @@ The output file will be written to ./data directory
 Contact
 -------
 Please contact Dr. Beifang Niu by niubf@cnic.cn if you have any questions.
-
+`
