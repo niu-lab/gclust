@@ -14,19 +14,19 @@ Usage
 
 Options:
 
-       -minlen   <int>       set the minimum length of a exact match, if not set, default=20
+       -minlen   <int>       set the minimum length of an exact match, if not set, default = 20
        -both     <no-args>   compute forward and reverse complement matches, the default value is forward
        -nuc      <no-args>   match only the characters a, c, g, or t
-       -sparse   <int>       step of sparse suffix array, default=1
-       -threads  <int>       number of threads to use, default=1
-       -chunk    <int>       chunk size for one time clustering, the unit is MB, default=100
-       -nchunk   <int>       chunk number loaded one time for remaining genomes alignment, default=2
+       -sparse   <int>       step of sparse suffix array, default = 1
+       -threads  <int>       number of threads to use, default = 1
+       -chunk    <int>       chunk size for one time clustering, the unit is MB, default = 100
+       -nchunk   <int>       chunk number loaded one time for remaining genomes alignment, default = 2
        -loadall  <int>       loading total genomes one time
-       -rebuild  <int>       rebuild suffix array after clustering into one chunk, default=1
+       -rebuild  <int>       rebuild suffix array after clustering into one chunk, default = 1
 
 Clustering cutoff:
 
-       -memiden  <int>       MEMs identity for clustering (default=90, 90% MEMs identity)
+       -memiden  <int>       MEMs identity for clustering (default = 90, 90% MEMs identity)
 
 MEM extension options:
 
