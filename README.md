@@ -15,7 +15,7 @@ Options:
        -nuc      <no-args>   Match only the characters a, c, g, or t
        -sparse   <int>       Set the step of sparse suffix array, default = 1
        -threads  <int>       Set the number of threads to use, default = 1
-       -chunk    <int>       Set the chunk size for one time clustering, default = 100, where the unit is MB
+       -chunk    <int>       Set the chunk size for one time clustering, default = 100, where the unit is million base pairs (Mbp)
        -nchunk   <int>       Set the chunk number loaded one time for remaining genomes alignment, default = 2
        -loadall  <int>       Load the total genomes one time
        -rebuild  <int>       Rebuild suffix array after clustering into one chunk, default = 1
