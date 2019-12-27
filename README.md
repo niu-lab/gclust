@@ -22,7 +22,7 @@ Options:
 
 Clustering cutoff:
 
-       -memiden  <int>       Set the value of extended maximal exact match (MEM) idendity or non-extended MEM idendity for clustering, default = 90, i.e., the genomes will be clustered at 90% extended MEM idendity under the condition of '-ext = 1'; on the contrary, the genomes will be clustered at 90% non-extended MEM idendity under the condition of '-ext = 0'
+       -memiden  <int>       Set the value of extended maximal exact match (MEM) idendity or non-extended MEM idendity for clustering, default = 90
 
 Extension options of MEM:
 
