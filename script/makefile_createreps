@@ -1,0 +1,12 @@
+HELP:
+	@echo 'This script is used to generate the representative genome sequences from gclust output.'
+	@echo 'Author: Ruilin Li'
+	@echo -e 'make -f /your_gclust_path/gclust/script/makefile gf=genomes-file clu=clustering-file pgf=repgenomes-file CRG'
+
+.PHONY:CRG
+CRG:
+	grep ">" $(gf) > ref_title
+	grep -v '>Cluster' $(clu) | perl -ne 'chomp; $$_=~/(^\d)\s+.*(\>.*\d)\.\.\..*/; $$flag=$$1; $$ref=$$2; print $$flag."\t".$$ref."\n";' > clustering.out.p1
+	cat clustering.out.p1 | perl -ne 'BEGIN{ $%hh; map{ chomp; @aa=split; $$hh{$$aa[0]}=$$_; }`cat ref_title`; }chomp; @aa=split; print $$aa[0]."\t".$$hh{$$aa[1]}."\n"; ' > clustering.out.p2
+	cat clustering.out.p2 | perl -ne 'BEGIN{ $%h; $$k=""; map{chomp; if(/>/){$$k=$$_;}else{ $$h{$$k}=$$h{$$k}.$$_; }  }`cat $(gf)`; } chomp; @aa=split/\t/; $$k=$$aa[1]; if(!$$aa[0]){$$h{$$k}=~s/(.{80})/$$1\n/g; print $$k."\n".$$h{$$k}."\n"; }' > $(pgf)
+	rm clustering.out.p*

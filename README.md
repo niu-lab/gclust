@@ -62,6 +62,11 @@ perl script/sortgenome.pl --genomes-file data/viral.1.1.genomic.fna --sortedgeno
 ./gclust -minlen 20 -both -nuc -threads 8 -ext 1 -sparse 2 data/viral.1.1.genomic.sort.fna > data/viral.1.1.genomic.sort.fna.clustering.out
 ```
 
+3. Generate representative genomes from gclust output:
+```bash
+make -f script/makefile gf=data/viral.1.1.genomic.fna clu=data/viral.1.1.genomic.sort.fna.clustering.out pgf=repgenomes.out CRG
+```
+
 Output
 -------
 If the user does not specify an output file name, the clustering results will be placed in the './data' directory by default, and the default file name is 'viral.1.1.genomic.sort.fna'.
